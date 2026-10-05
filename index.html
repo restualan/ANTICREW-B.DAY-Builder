@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anticrew Birthday Poster Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link crossorigin="anonymous" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&family=Playfair+Display:ital,wght@1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">Birthday Poster Builder</div>
+  <div class="topbar-actions">
+    <button id="resetBtn" class="btn ghost">Reset</button>
+    <button id="exportTopBtn" class="btn primary">Export</button>
+  </div>
+</header>
+
+<main class="workspace">
+  <section class="stage" id="stage">
+    <div class="poster-holder" id="posterHolder">
+      <div class="poster" id="poster">
+        <div class="bg-base" id="bgBase"></div>
+        <img class="bg-img" id="bgImg" alt="">
+        <div class="bg-overlay" id="bgOverlay"></div>
+
+        <img class="logo" id="logo" alt="Antikode">
+        <h1 class="headline editable" id="headline" data-text="headline"></h1>
+        <div class="cards-zone" id="cardsZone"></div>
+        <p class="greeting editable" id="greeting" data-text="greeting"></p>
+        <p class="season"><span class="editable" id="season" data-text="season"></span></p>
+      </div>
+    </div>
+  </section>
+
+  <aside class="panel" id="panel">
+    <section class="group">
+      <h2>Cards <span class="count" id="cardCount"></span></h2>
+      <div class="row">
+        <button id="addCardBtn" class="btn">+ Add card</button>
+        <button id="subCardBtn" class="btn">− Remove card</button>
+        <button id="addPhotosBtn" class="btn">+ From photos…</button>
+      </div>
+      <label class="field"><span>Card size (<span id="cardScaleVal">100%</span>)</span>
+        <input type="range" id="cardScale" min="0.4" max="1" step="0.01" value="1">
+      </label>
+      <ol class="card-list" id="cardList"></ol>
+
+      <div class="selected" id="selectedPanel" hidden>
+        <h3>Selected: <span id="selName"></span></h3>
+        <div class="row">
+          <button id="replacePhotoBtn" class="btn">Replace photo</button>
+          <button id="clearPhotoBtn" class="btn ghost">Clear</button>
+        </div>
+        <label class="field">Zoom
+          <input type="range" id="zoomRange" min="1" max="4" step="0.01" value="1">
+        </label>
+        <p class="hint">Drag the photo on the poster to reposition it. Scroll to zoom.</p>
+        <div class="row">
+          <button id="moveLeftBtn" class="btn">← Earlier</button>
+          <button id="moveRightBtn" class="btn">Later →</button>
+          <button id="removeCardBtn" class="btn danger">Remove</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Background</h2>
+      <div class="row">
+        <button id="bgUploadBtn" class="btn">Upload image</button>
+        <button id="bgDefaultBtn" class="btn ghost">Default</button>
+        <button id="bgNoneBtn" class="btn ghost">No image</button>
+      </div>
+      <label class="field">Image opacity
+        <input type="range" id="bgOpacity" min="0" max="1" step="0.01">
+      </label>
+      <label class="field">Darken
+        <input type="range" id="bgDarken" min="0" max="0.8" step="0.01">
+      </label>
+      <div class="field">Base color
+        <div class="swatches" id="swatches"></div>
+        <label class="custom-color">Custom <input type="color" id="bgColor"></label>
+      </div>
+    </section>
+
+    <section class="group export" id="exportGroup">
+      <div class="export-head">
+        <h2>Export</h2>
+        <button id="exportAdd" class="icon-btn" aria-label="Add export setting" title="Add export setting">+</button>
+      </div>
+      <div id="exportRows"></div>
+      <button id="exportBtn" class="btn export-run">Export Poster</button>
+      <button id="previewToggle" class="preview-toggle" aria-expanded="false"><span class="caret">›</span> Preview</button>
+      <div id="previewBox" hidden>
+        <img id="previewImg" alt="Export preview">
+        <ul id="previewList"></ul>
+        <button id="previewRefresh" class="btn ghost">Refresh preview</button>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Text</h2>
+      <p class="hint">Click any text on the poster to edit it: headline, names, titles, dates, greeting and season line.</p>
+    </section>
+
+    <p class="status" id="status" role="status"></p>
+  </aside>
+</main>
+
+<input type="file" id="photoInput" accept="image/*" hidden>
+<input type="file" id="multiInput" accept="image/*" multiple hidden>
+<input type="file" id="bgInput" accept="image/*" hidden>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
+<script src="assets/defaults.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
