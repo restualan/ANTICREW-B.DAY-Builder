@@ -13,3 +13,7 @@ Web editor for the monthly birthday poster (1920×1080, from the Figma "OCT - BD
 **Fonts:** the design uses Proxima Nova and PP Editorial Old (licensed). Without them, Nunito Sans / Playfair Display are used.
 Install the real fonts on your machine, or place `ProximaNova-Regular.woff2`, `ProximaNova-Semibold.woff2` and
 `PPEditorialOld-Italic.woff2` in `fonts/`.
+
+**Built-in assets:** `assets/antikode-logo.png` and `assets/bg-default.jpg` are embedded into `assets/defaults.js`
+so the poster never depends on file paths when deployed. After replacing either image, run `tools/embed-assets.sh`.
+Deploy the whole folder (static hosting; no build step).

@@ -30,7 +30,7 @@
     },
     cardScale: 1,
     exports: [newExport("2x", "JPG")],
-    bg: { image: "default", base: BASES[0].css, imageOpacity: 0.7, overlay: 0 },
+    bg: { image: "default", base: BASES[0].css, imageOpacity: 1, overlay: 0, assetV: 2 },
     cards: [
       sample("Person_Name_1", "Creative Director", "01"),
       sample("Person_Name_2", "Frontend Web Developer", "13"),
@@ -57,6 +57,8 @@
       const s = JSON.parse(raw);
       if (!(s && s.cards && s.texts && s.bg)) return null;
       if (typeof s.cardScale !== "number") s.cardScale = 1;
+      // the built-in background is now the final graded BG.1.jpg: show it at full strength
+      if (s.bg.assetV !== 2) { if (s.bg.image === "default") s.bg.imageOpacity = 1; s.bg.assetV = 2; }
       if (!Array.isArray(s.exports)) s.exports = [{ id: uid(), scale: "2x", format: "JPG", quality: 95 }];
       return s;
     } catch (e) { return null; }
@@ -601,7 +603,7 @@
 
   /* ---------- wiring ---------- */
   function init() {
-    $("logo").src = window.LOGO_SVG;
+    $("logo").src = window.DEFAULT_LOGO;
 
     ["headline", "greeting", "season"].forEach((k) =>
       makeEditable($(k), () => state.texts[k], (v) => (state.texts[k] = v)));
